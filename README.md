@@ -1,69 +1,117 @@
-# React + TypeScript + Vite
+# Wires - Social Network Visualization
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A beautiful, interactive social network graph visualization built with React, D3.js, and Tailwind CSS.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Visual Design
 
-## Expanding the ESLint configuration
+- **Notion-like minimal design** with light gray background and soft shadows
+- **Circular nodes** with the first letter of each person's name
+- **Color-coded relationships**:
+  - 🔵 Blue = Friend
+  - 🔴 Red = Family
+  - 🟢 Green = Acquaintance
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Network Structure
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **2-layer depth visualization**:
+  - Layer 0: You (center, dark circle)
+  - Layer 1: Direct connections (light gray circles)
+  - Layer 2: Friends-of-friends (slightly darker gray circles)
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### Interactivity
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Click any node** to see a minimal card with:
+  - Full name
+  - Relationship type
+  - Network depth
+- **Drag nodes** to reposition them
+- **Legend** showing relationship types and network depth
+
+### Technical Stack
+
+- **React** with TypeScript
+- **D3.js** for force-directed graph simulation
+- **Tailwind CSS** for styling
+- **Vite** for development and building
+
+### Privacy
+
+- **Local only** - all data is stored in static JSON files
+- No external API calls or data transmission
+
+## Getting Started
+
+1. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+2. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+3. Open your browser to `http://localhost:5173`
+
+## Customization
+
+### Adding People
+
+Edit `src/components/Graph/data.ts` to add new nodes and relationships:
+
+```typescript
+const data: GraphData = {
+  nodes: [
+    { id: "person_id", name: "Person Name", depth: 1 },
+    // ...
+  ],
+  links: [
+    { source: "person1", target: "person2", relationship: "friend" },
+    // ...
+  ],
+};
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Relationship Types
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Available relationship types:
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- `friend`
+- `family`
+- `acquaintance`
+
+### Depth Levels
+
+- `depth: 0` - You (center node)
+- `depth: 1` - Direct connections
+- `depth: 2` - Friends-of-friends
+
+## Project Structure
+
 ```
+src/
+├── components/
+│   ├── Graph/
+│   │   ├── SocialNetworkGraph.tsx  # Main graph component
+│   │   ├── NodeCard.tsx           # Node detail card
+│   │   ├── Legend.tsx             # Graph legend
+│   │   └── data.ts                # Graph data
+│   └── ui/
+│       └── Header.tsx             # App header
+├── types/
+│   └── index.ts                   # TypeScript definitions
+└── App.tsx                        # Main app component
+```
+
+## Development
+
+The project uses:
+
+- **TypeScript** for type safety
+- **ESLint** for code linting
+- **Vite** for fast development and building
+- **Tailwind CSS** for utility-first styling

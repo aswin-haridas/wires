@@ -1,4 +1,6 @@
-const data = {
+import type { GraphData } from "../../types";
+
+const data: GraphData = {
   nodes: [
     // Self (depth 0)
     { id: "you", name: "You", depth: 0 },
