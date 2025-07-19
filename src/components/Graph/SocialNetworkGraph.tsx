@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import NodeCard from "./NodeCard";
-import Legend from "./Legend";
 import type { GraphData, Node, Link } from "../../types";
 
 interface SocialNetworkGraphProps {
@@ -200,8 +199,6 @@ const SocialNetworkGraph: React.FC<SocialNetworkGraphProps> = ({ data }) => {
           className="w-full h-full"
         />
       </div>
-
-      <Legend />
 
       <NodeCard
         node={selectedNode}

@@ -1,19 +1,32 @@
+import { useState } from "react";
 import SocialNetworkGraph from "./components/Graph/SocialNetworkGraph";
 import Header from "./components/ui/Header";
+import AddConnectionSidebar from "./components/ui/AddConnectionSidebar";
 import data from "./components/Graph/data";
 import "./App.css";
 
 function App() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const handleAddConnection = (connection: {
+    name: string;
+    relationship: "friend" | "family" | "acquaintance";
+  }) => {
+    // TODO: Implement adding connection to the graph data
+    console.log("Adding connection:", connection);
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      <div className="h-[calc(100vh-80px)] p-8">
-        <div className="max-w-7xl mx-auto h-full">
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full p-6">
-            <SocialNetworkGraph data={data} />
-          </div>
-        </div>
+    <div className="h-screen w-screen bg-white flex flex-col">
+      <Header onAddConnection={() => setIsSidebarOpen(true)} />
+      <div className="flex-1">
+        <SocialNetworkGraph data={data} />
       </div>
+      <AddConnectionSidebar
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+        onAddConnection={handleAddConnection}
+      />
     </div>
   );
 }
